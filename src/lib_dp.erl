@@ -23,7 +23,7 @@
 -module( lib_dp ).
 -author( "Jorgen Brandt <brandjoe@hu-berlin.de>" ).
 
--export( [new/1, new/3, scoretbl/3, editscr/4, sumscr/1] ).
+-export( [new/1, new/3, scoretbl/3, editscr/4, sumscr/1, print_tbl/1] ).
 
 -export( [find_max_score/3, extend_backward/4, extend_forward/4,
           find_local_matches/4, find_vertical_end/2, find_horizontal_end/2] ).
@@ -222,6 +222,41 @@ when Strategy :: strategy(),
 
 new( Strategy, SubstFun, Indel ) ->
   {?MODULE, Strategy, SubstFun, Indel}.
+
+
+
+print_tbl( Tbl ) ->
+  print_tbl( Tbl, 1 ).
+
+print_tbl( Tbl, I ) ->
+  case maps:is_key( {I, 1}, Tbl ) of
+    false -> ok;
+    true  ->
+      ok = print_line( Tbl, I, 1 ),
+      io:format( "~n" ),
+      print_tbl( Tbl, I+1 )
+  end.
+
+print_line( Tbl, I, J ) ->
+  case maps:is_key( {I, J}, Tbl ) of
+    false -> ok;
+    true  ->
+      {Score, BackLnk} = maps:get( {I, J}, Tbl ),
+      S = case BackLnk of
+            undef    -> ".";
+            {I1, J1} ->
+              if
+                I > I1 ->
+                  if
+                    J > J1 -> "\\";
+                    true   -> "|"
+                  end;
+                true -> "-"
+              end
+          end,
+      io:format( "~s~3.. B ", [S, Score] ),
+      print_line( Tbl, I, J+1 )
+  end.
 
 
 %% @doc Creates the Dynamic Programming score table from two sequences.
