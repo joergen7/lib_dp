@@ -26,7 +26,7 @@
 -export( [new/1, new/3, scoretbl/3, editscr/4, sumscr/1] ).
 
 -export( [find_max_score/3, extend_backward/4, extend_forward/4,
-          find_local_matches/4] ).
+          find_local_matches/4, find_vertical_end/2, find_horizontal_end/2] ).
 
 -ifdef( TEST ).
 -include_lib( "eunit/include/eunit.hrl" ).
@@ -320,11 +320,10 @@ when StartPair :: {non_neg_integer(), non_neg_integer()},
 editscr_fixpnt( {I0, J0}, {I0, J0}, RSeqPair, _, Acc, _ ) ->
   {Acc, RSeqPair};
 
-editscr_fixpnt( Start={I0, J0}, {I0, J}, {L1, [H2|T2]}, Tbl, Acc, ModArg ) ->
+editscr_fixpnt( Start={I0, _}, {I0, J}, {L1, [H2|T2]}, Tbl, Acc, ModArg ) ->
   editscr_fixpnt( Start, {I0, J-1}, {L1, T2}, Tbl, [{indel, H2}|Acc], ModArg );
 
-
-editscr_fixpnt( Start={I0, J0}, {I, J0}, {[H1|T1], L2}, Tbl, Acc, ModArg ) ->
+editscr_fixpnt( Start={_, J0}, {I, J0}, {[H1|T1], L2}, Tbl, Acc, ModArg ) ->
   editscr_fixpnt( Start, {I-1, J0}, {T1, L2}, Tbl, [{H1, indel}|Acc], ModArg );
 
 editscr_fixpnt( Start={I0, _}, Pos={I, J}, {L1=[H1|T1], L2=[H2|T2]}, Tbl, Acc,
@@ -658,45 +657,41 @@ sumscr_fixpnt( [{X, Y}|T], {del, Acc}, MajAcc ) ->
 
 find_vertical_end_finds_max1_test() ->
   Tbl = #{
-    {1, 15} => -3,
-    {2, 15} => -4,
-    {3, 15} => 20,
-    {4, 15} => -1
+    {1, 15} => {-3, undef},
+    {2, 15} => {-4, undef},
+    {3, 15} => {20, undef},
+    {4, 15} => {-1, undef}
   },
   ?assertEqual( {{3, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
 
 find_vertical_end_finds_max2_test() ->
   Tbl = #{
-    {1, 15} => -3,
-    {2, 15} => -4,
-    {3, 15} => -1,
-    {4, 15} => 20
+    {1, 15} => {-3, undef},
+    {2, 15} => {-4, undef},
+    {3, 15} => {-1, undef},
+    {4, 15} => {20, undef}
   },
   ?assertEqual( {{4, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
 
 find_vertical_end_finds_max3_test() ->
   Tbl = #{
-    {1, 15} => 20,
-    {2, 15} => -4,
-    {3, 15} => -3,
-    {4, 15} => -1
+    {1, 15} => {20, undef},
+    {2, 15} => {-4, undef},
+    {3, 15} => {-3, undef},
+    {4, 15} => {-1, undef}
   },
   ?assertEqual( {{1, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
 
-
-find_vertical_end_returns_zero_on_empty_s1_test() ->
-  ?assertEqual( {{0, 0}, 0}, find_vertical_end( {4, 15}, #{} ) ).
-
 find_max_score_finds_max_score_test() ->
   Tbl = #{
-    {1, 1} => -3,
-    {2, 1} => -4,
-    {3, 1} => -3,
-    {4, 1} => -1,
-    {1, 2} => -5,
-    {2, 2} => 20,
-    {3, 2} => -3,
-    {4, 2} => -1
+    {1, 1} => {-3, undef},
+    {2, 1} => {-4, undef},
+    {3, 1} => {-3, undef},
+    {4, 1} => {-1, undef},
+    {1, 2} => {-5, undef},
+    {2, 2} => {20, undef},
+    {3, 2} => {-3, undef},
+    {4, 2} => {-1, undef}
   },
   ?assertEqual( {{2, 2}, 20}, find_max_score( {0, 0}, {4, 2}, Tbl ) ).
 -endif.
