@@ -13,6 +13,9 @@ Furthermore, it is possible to provide custom substitution matrices and to
 customize the score of insertions and deletions. From the alignments, different
 kinds of edit scripts can be produced.
 
+The algorithm has O(n^2) complexity regarding the length of the input sequences
+in both processing time as well as memory consumption.
+
 ## Compiling from Source
 
 The following packages should be installed on your machine:
