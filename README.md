@@ -17,9 +17,9 @@ kinds of edit scripts can be produced.
 
 The following packages should be installed on your machine:
 
-- git
-- erlang (OTP 18.0 or higher)
-- rebar3
+- [git](https://git-scm.com)
+- [erlang](http://www.erlang.org/) (OTP 18.0 or higher)
+- [rebar3](https://github.com/erlang/rebar3)
 
 Download the git repository and change into the repository's directory:
 
@@ -51,7 +51,7 @@ Start an Erlang shell by entering:
 
     rebar3 shell
 
-`lib_dp' allows the matching of lists of any given elements. Since Erlang
+`lib_dp` allows the matching of lists of any given elements. Since Erlang
 strings are internally represented as lists of integers, it is straightforward
 to match them. Note, however, that the lists must be flat in order for the
 matching to be successful.
@@ -68,8 +68,8 @@ way, we want to perform alignments. Here, we will perform a global alignment
 
     Dp = lib_dp:new( global ).
 
-Now, we compile the Dynamic Programming score table from the two strings `A'
-and `B':
+Now, we compile the Dynamic Programming score table from the two strings `A`
+and `B`:
 
     Tbl = Dp:scoretbl( A, B ).
 
@@ -97,7 +97,7 @@ We can now cunstruct an edit script from the programming table by entering:
     EditScr = Dp:editscr( A, B, Tbl ).
 
 The edit script is a list of pairs in which the first element represents a
-symbol from sequence `A' and the second represents a symbol from sequence `B'.
+symbol from sequence `A` and the second represents a symbol from sequence `B`.
 The edit script for this example is the following:
 
     [{v,w},{i,i},{n,n},{t,t},{n,indel},{e,e},{r,r},{indel,s}]
