@@ -1,18 +1,17 @@
-# lib_dp
+# Dynamic Programming in Erlang
 
 [![Build Status](https://travis-ci.org/joergen7/lib_dp.svg?branch=master)](https://travis-ci.org/joergen7/lib_dp)
-
-Dynamic Programming in Erlang.
 
 This library allows the inexact matching of a pair of sequences via Dynamic
 Programming. The library supports three different matching schemes:
 
 - global alignment (Needleman-Wunsch)
 - global end-space free alignment
-- local alignment
+- local alignment (Smith-Waterman)
 
-Furthermore it is possible to provide custom substitution matrices and to
-customize the weight of insertions and deletions. From the alignments, different kinds of edit scripts can be produced.
+Furthermore, it is possible to provide custom substitution matrices and to
+customize the score of insertions and deletions. From the alignments, different
+kinds of edit scripts can be produced.
 
 ## Compiling from Source
 
