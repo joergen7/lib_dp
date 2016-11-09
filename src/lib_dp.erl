@@ -23,10 +23,11 @@
 -module( lib_dp ).
 -author( "Jorgen Brandt <brandjoe@hu-berlin.de>" ).
 
--export( [new/1, new/3, scoretbl/3, editscr/4, sumscr/1, print_tbl/1] ).
+-export( [new/1, get_score/2, new/3, scoretbl/3, editscr/4, sumscr/1,
+          print_tbl/1] ).
 
 -export( [find_max_score/3, extend_backward/4, extend_forward/4,
-          find_local_matches/4, find_vertical_end/2, find_horizontal_end/2] ).
+          find_local_matches/4, find_vertical_end/1, find_horizontal_end/1] ).
 
 -ifdef( TEST ).
 -include_lib( "eunit/include/eunit.hrl" ).
@@ -109,8 +110,8 @@ editscr( TLst1, TLst2, Tbl, ModArg=#lib_dp{ strategy=global } ) ->
 editscr( TLst1, TLst2, Tbl, ModArg=#lib_dp{ strategy=global_endfree } ) ->
   ILen = length( TLst1 ),
   JLen = length( TLst2 ),
-  {{VIndex, JLen}, VScore} = find_vertical_end( {ILen, JLen}, Tbl ),
-  {{ILen, HIndex}, HScore} = find_horizontal_end( {ILen, JLen}, Tbl ),
+  {{VIndex, JLen}, VScore} = find_vertical_end( Tbl ),
+  {{ILen, HIndex}, HScore} = find_horizontal_end( Tbl ),
   if
     VScore > HScore ->
       Suffix = lists:nthtail( VIndex, TLst1 ),
@@ -167,6 +168,21 @@ editscr( S1, S2, Tbl, ModArg=#lib_dp{ strategy=local } ) ->
       end,
 
   F( {S1Len, S2Len}, {RS1, RS2}, RMatches, [] ).
+
+get_score( Tbl, #lib_dp{ strategy=global } ) ->
+  EndPos = lists:max( maps:keys( Tbl ) ),
+  #{ EndPos := {Score, _} } = Tbl,
+  Score;
+
+get_score( Tbl, #lib_dp{ strategy=global_endfree } ) ->
+  {_, VScore} = find_vertical_end( Tbl ),
+  {_, HScore} = find_horizontal_end( Tbl ),
+  lists:max( [VScore, HScore] );
+
+get_score( Tbl, #lib_dp{ strategy=local } ) ->
+  EndPos = lists:max( maps:keys( Tbl ) ),
+  {_, Score} = find_max_score( {0, 0}, EndPos, Tbl ),
+  Score.
 
 
 %% @doc A simplified version of the function `new/3' to construct a stateful
@@ -446,11 +462,10 @@ extend_forward( Pos={I, J}, ScopeEnd, Tbl, ModArg ) ->
 %%      The function produces a pair consisting of a position pair and its
 %%      score.
 
--spec find_horizontal_end( EndPair, Tbl ) -> {pos_pair(), number()}
-when EndPair :: pos_pair(),
-     Tbl     :: score_table().
+-spec find_horizontal_end( Tbl :: score_table() ) -> {pos_pair(), number()}.
 
-find_horizontal_end( {ILen, JLen}, Tbl ) ->
+find_horizontal_end( Tbl ) ->
+  {ILen, JLen} = lists:max( maps:keys( Tbl ) ),
   find_max_score( {ILen-1, 0}, {ILen, JLen}, Tbl ).
 
 
@@ -519,11 +534,10 @@ find_max_score( {I0, J0}, {I1, J1}, Tbl ) ->
 %%      The function produces a pair consisting of a position pair and its
 %%      score.
 
--spec find_vertical_end( EndPair, Tbl ) -> {pos_pair(), number()}
-when EndPair :: pos_pair(),
-     Tbl     :: score_table().
+-spec find_vertical_end( Tbl :: score_table() ) -> {pos_pair(), number()}.
 
-find_vertical_end( {ILen, JLen}, Tbl ) ->
+find_vertical_end( Tbl ) ->
+  {ILen, JLen} = lists:max( maps:keys( Tbl ) ),
   find_max_score( {0, JLen-1}, {ILen, JLen}, Tbl ).
   
 

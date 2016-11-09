@@ -9,9 +9,10 @@ Programming. The library supports three different matching schemes:
 - global end-space free alignment
 - local alignment (Smith-Waterman)
 
-Furthermore, it is possible to provide custom substitution matrices and to
-customize the score of insertions and deletions. From the alignments, different
-kinds of edit scripts can be produced.
+Furthermore, it is possible to provide custom substitution matrices and to set
+the score of insertions and deletions. After alignment the similarity score of
+both sequences can be queried and different kinds of edit scripts can be
+produced.
 
 The algorithm has O(n^2) complexity regarding the length of the input sequences
 in both processing time as well as memory consumption.
@@ -94,6 +95,14 @@ The table will look something like this:
 It displays the score associated with each position pair as well as the
 back-links that memorize from which direction the score was generated. Higher
 scores mean higher similarity.
+
+For global alignments, the similarity score of both sequences is the value in
+the lower right corner of the score table, here: 2. We can extract the
+similarity score from a score table by applying the function `get_score`:
+
+    Dp:get_score( Tbl ).
+
+Note that the score will change depending on the alignment strategy.
 
 We can now cunstruct an edit script from the programming table by entering:
 
