@@ -711,7 +711,7 @@ find_vertical_end_finds_max1_test() ->
     {3, 15} => {20, undef},
     {4, 15} => {-1, undef}
   },
-  ?assertEqual( {{3, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
+  ?assertEqual( {{3, 15}, 20}, find_vertical_end( Tbl ) ).
 
 find_vertical_end_finds_max2_test() ->
   Tbl = #{
@@ -720,7 +720,7 @@ find_vertical_end_finds_max2_test() ->
     {3, 15} => {-1, undef},
     {4, 15} => {20, undef}
   },
-  ?assertEqual( {{4, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
+  ?assertEqual( {{4, 15}, 20}, find_vertical_end( Tbl ) ).
 
 find_vertical_end_finds_max3_test() ->
   Tbl = #{
@@ -729,7 +729,7 @@ find_vertical_end_finds_max3_test() ->
     {3, 15} => {-3, undef},
     {4, 15} => {-1, undef}
   },
-  ?assertEqual( {{1, 15}, 20}, find_vertical_end( {4, 15}, Tbl ) ).
+  ?assertEqual( {{1, 15}, 20}, find_vertical_end( Tbl ) ).
 
 find_max_score_finds_max_score_test() ->
   Tbl = #{
