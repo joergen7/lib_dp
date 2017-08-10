@@ -126,3 +126,11 @@ The resulting summary script looks like this:
      {ins,[n]},
      {match,[e,r]},
      {del,[s]}]
+
+## Authors
+
+- Jörgen Brandt (joergen7) [joergen.brandt@onlinehome.de](mailto:joergen.brandt@onlinehome.de)
+
+## License
+
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
