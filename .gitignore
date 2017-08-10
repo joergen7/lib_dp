@@ -12,3 +12,4 @@ _build
 rebar.lock
 src/tex_scan.erl
 doc
+rebar.lock
