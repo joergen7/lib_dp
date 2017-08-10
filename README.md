@@ -127,6 +127,11 @@ The resulting summary script looks like this:
      {match,[e,r]},
      {del,[s]}]
 
+## System Requirements
+
+- Erlang OTP 18.0 or higher
+- Rebar3 3.0.0 or higher
+
 ## Authors
 
 - Jörgen Brandt (joergen7) [joergen.brandt@onlinehome.de](mailto:joergen.brandt@onlinehome.de)
