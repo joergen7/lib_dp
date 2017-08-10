@@ -2,7 +2,7 @@
 %%
 %% Dynamic Programming in Erlang
 %%
-%% Copyright 2016 Jörgen Brandt
+%% Copyright 2016-2017 Jörgen Brandt
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -15,8 +15,14 @@
 %% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 %% See the License for the specific language governing permissions and
 %% limitations under the License.
-
-%% @author Jörgen Brandt <brandjoe@hu-berlin.de>
+%%
+%% -------------------------------------------------------------------
+%% @author Jörgen Brandt <joergen.brandt@onlinehome.de>
+%% @version 0.1.0
+%% @copyright 2016-2017 Jörgen Brandt
+%%
+%% @end
+%% -------------------------------------------------------------------
 
 %% @doc Dynamic Programming library.
 
