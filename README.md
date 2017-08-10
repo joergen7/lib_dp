@@ -1,6 +1,6 @@
 # Dynamic Programming in Erlang
 
-[![Build Status](https://travis-ci.org/joergen7/lib_dp.svg?branch=master)](https://travis-ci.org/joergen7/lib_dp)
+[![hex.pm](https://img.shields.io/hexpm/v/lib_dp.svg?style=flat-square)](https://hex.pm/packages/lib_dp) [![Build Status](https://travis-ci.org/joergen7/lib_dp.svg?branch=master)](https://travis-ci.org/joergen7/lib_dp)
 
 This library allows the inexact matching of a pair of sequences via Dynamic
 Programming. The library supports three different matching schemes:
