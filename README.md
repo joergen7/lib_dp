@@ -1,4 +1,5 @@
-# Dynamic Programming in Erlang
+# lib_dp
+###### Dynamic Programming in Erlang.
 
 [![hex.pm](https://img.shields.io/hexpm/v/lib_dp.svg?style=flat-square)](https://hex.pm/packages/lib_dp) [![Build Status](https://travis-ci.org/joergen7/lib_dp.svg?branch=master)](https://travis-ci.org/joergen7/lib_dp)
 
